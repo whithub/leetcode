@@ -45,17 +45,36 @@ class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
         total = 0
         depth = 1
-
-        def calcSum(depth, item):
-            nonlocal total
-
-            if item.isInteger():
-                total += (depth * item.getInteger())
-            else:
-                for el in item.getList():
-                    calcSum(depth+1, el)
             
         for item in nestedList:
-            calcSum(depth, item)
+            total = self.calcSum(total, depth, item)
 
         return total
+
+    def calcSum(self, total: int, depth: int, item: any):
+        if item.isInteger():
+            total += (depth * item.getInteger())
+        else:
+            for el in item.getList():
+                total = self.calcSum(total, depth+1, el)
+        return total
+
+    # Nested methods:
+    # def depthSum(self, nestedList: List[NestedInteger]) -> int:
+    #     total = 0
+    #     depth = 1
+
+    #     def calcSum(depth, item):
+    #         nonlocal total
+
+    #         if item.isInteger():
+    #             total += (depth * item.getInteger())
+    #         else:
+    #             for el in item.getList():
+    #                 calcSum(depth+1, el)
+            
+    #     for item in nestedList:
+    #         calcSum(depth, item)
+
+    #     return total
+    
